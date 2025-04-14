@@ -1,0 +1,52 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local DashRequest = ReplicatedStorage:WaitForChild("DirectionDashRequest")
+local StateManager = require(ReplicatedStorage.Modules:WaitForChild("StateManager"))
+
+local COOLDOWN = 1.5
+local DASH_DURATION = 0.3
+local DASH_SPEED = 70
+local dashCooldowns = {}
+
+DashRequest.OnServerEvent:Connect(function(player, directionVector)
+	local lastDash = dashCooldowns[player.UserId]
+	if lastDash and tick() - lastDash < COOLDOWN then return end
+
+	local char = player.Character
+	if not char then return end
+
+	if StateManager.GetState(player, "MovementPriority")
+		or StateManager.GetState(player, "AttackPriority")
+		or StateManager.GetState(player, "Frozen")
+		or StateManager.GetState(player, "Stunned") then
+		return
+	end
+
+	local hrp = char:FindFirstChild("HumanoidRootPart")
+	if not hrp then return end
+
+
+	if typeof(directionVector) ~= "Vector3" or directionVector.Magnitude > 1.5 then return end
+	directionVector = directionVector.Unit
+
+
+	dashCooldowns[player.UserId] = tick()
+	StateManager.SetState(player, "MovementPriority", true)
+
+
+	local bv = Instance.new("BodyVelocity")
+	bv.MaxForce = Vector3.new(1e6, 0, 1e6)
+	bv.Velocity = hrp.CFrame.RightVector * directionVector.X * DASH_SPEED
+		+ hrp.CFrame.LookVector * directionVector.Z * DASH_SPEED
+	bv.P = 9e9
+	bv.Parent = hrp
+
+	game.Debris:AddItem(bv, DASH_DURATION)
+
+
+	DashRequest:FireAllClients(player, directionVector)
+
+
+	task.delay(DASH_DURATION + 2, function()
+		StateManager.ClearState(player, "MovementPriority")
+	end)
+end)
