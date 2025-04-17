@@ -1,1 +1,6 @@
-
+Rhythm-Based Combat System
+The rhythm-based combat system revolves around timing inputs to execute attacks. Players must input their commands within specific windows during attack animations to perform combos and achieve optimal results.
+The combo system requires precise input timing to chain attacks. Each combo has a window, and players are rewarded for accuracy. Early or late inputs result in missed attacks or reduced effectiveness. Feedback is provided through visual cues and sound effects to indicate successful or failed inputs.
+A small input buffering system is in place to allow for minor delays in player input. If a player misses an input, the combo resets, and they must try again. Difficulty scales by reducing timing windows as players progress, creating a more challenging experience.
+Visual timing indicators, such as color-changing bars or rotating circles, help players time their inputs. Audio cues sync with beats to guide the player, providing a satisfying response when hitting the correct timing.
+Player states, like "AttackPriority," determine when moves can be executed. The system blocks or cancels inputs during certain states like stun or freeze to maintain balance. Further development will include customizable input buffers and testing of different combo timing.
