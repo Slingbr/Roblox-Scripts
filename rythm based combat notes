@@ -16,5 +16,16 @@ function checkComboInput(inputTime, comboIndex):
     else:
         resetCombo()  # Reset combo if input was too early or late
         return false
+
 combo window timer
+
+function startComboTimer(comboIndex):
+    comboWindowStart = currentTime  # The time when the player can start inputting
+    comboWindowEnd = comboWindowStart + getComboWindowTime(comboIndex)  # Calculate the end of combo window
+    while currentTime < comboWindowEnd:
+        if playerInputsCombo() and currentTime is within window:
+            executeComboMove(comboIndex)
+            break
+    if currentTime > comboWindowEnd:
+        resetCombo()  # If no valid input within window
 
