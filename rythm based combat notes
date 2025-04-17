@@ -16,4 +16,5 @@ function checkComboInput(inputTime, comboIndex):
     else:
         resetCombo()  # Reset combo if input was too early or late
         return false
-combo window 
+combo window timer
+
