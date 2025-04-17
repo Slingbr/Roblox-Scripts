@@ -4,3 +4,16 @@ The combo system requires precise input timing to chain attacks. Each combo has 
 A small input buffering system is in place to allow for minor delays in player input. If a player misses an input, the combo resets, and they must try again. Difficulty scales by reducing timing windows as players progress, creating a more challenging experience.
 Visual timing indicators, such as color-changing bars or rotating circles, help players time their inputs. Audio cues sync with beats to guide the player, providing a satisfying response when hitting the correct timing.
 Player states, like "AttackPriority," determine when moves can be executed. The system blocks or cancels inputs during certain states like stun or freeze to maintain balance. Further development will include customizable input buffers and testing of different combo timing.
+
+PSEUDO 
+
+checking for input timing
+function checkComboInput(inputTime, comboIndex):
+    if inputTime is within the allowed window for comboIndex:
+        executeComboMove(comboIndex)
+        increment combo count
+        return true
+    else:
+        resetCombo()  # Reset combo if input was too early or late
+        return false
+combo window 
