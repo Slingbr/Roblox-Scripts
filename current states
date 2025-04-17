@@ -1,1 +1,19 @@
+AttackPriority
 
+Prevents the player from performing other attacks or conflicting actions while an attack is in progress.
+
+MovementPriority
+
+Prevents the player from moving or performing other movement actions like dashing while another movement action is happening.
+
+Frozen
+
+Completely locks the player in place (used for things like "KillIntent" or getting hit).
+
+Typically disables movement or input.
+
+Stunned
+
+Similar to Frozen, but likely used for different context like hit reactions or combo breaks.
+
+May allow animation playing but disable input.
